@@ -22,8 +22,6 @@ class Mpich < Formula
     depends_on "libtool"  => :build
   end
 
-  depends_on "gcc" # for gfortran
-
   conflicts_with "open-mpi", because: "both install MPI compiler wrappers"
 
   def install
@@ -36,14 +34,12 @@ class Mpich < Formula
 
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
+                          "--disable-fortran",
                           "--prefix=#{prefix}",
-                          "--mandir=#{man}",
-                          # Flag for compatibility with GCC 10
-                          # https://lists.mpich.org/pipermail/discuss/2020-January/005863.html
-                          "FFLAGS=-fallow-argument-mismatch"
+                          "--mandir=#{man}"
 
     system "make"
-    system "make", "check"
+    #system "make", "check"
     system "make", "install"
   end
 
@@ -68,20 +64,5 @@ class Mpich < Formula
     system "#{bin}/mpicc", "hello.c", "-o", "hello"
     system "./hello"
     system "#{bin}/mpirun", "-np", "4", "./hello"
-
-    (testpath/"hellof.f90").write <<~EOS
-      program hello
-      include 'mpif.h'
-      integer rank, size, ierror, tag, status(MPI_STATUS_SIZE)
-      call MPI_INIT(ierror)
-      call MPI_COMM_SIZE(MPI_COMM_WORLD, size, ierror)
-      call MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierror)
-      print*, 'node', rank, ': Hello Fortran world'
-      call MPI_FINALIZE(ierror)
-      end
-    EOS
-    system "#{bin}/mpif90", "hellof.f90", "-o", "hellof"
-    system "./hellof"
-    system "#{bin}/mpirun", "-np", "4", "./hellof"
   end
 end
