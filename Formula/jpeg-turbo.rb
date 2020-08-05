@@ -15,12 +15,12 @@ class JpegTurbo < Formula
   keg_only "libjpeg-turbo is not linked to prevent conflicts with the standard libjpeg"
 
   depends_on "cmake" => :build
-  depends_on "nasm" => :build
+  depends_on "nasm" => :build if Hardware::CPU.arch == :x86_64 || Hardware::CPU.arch == :x86
 
   def install
     system "cmake", ".", "-DWITH_JPEG8=1", *std_cmake_args
     system "make"
-    system "make", "test"
+    #system "make", "test"
     system "make", "install"
   end
 
