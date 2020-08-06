@@ -26,6 +26,13 @@ class Boost < Formula
     directory "tools/build"
   end
 
+  # Fix build on 64-bit arm
+  patch do
+    url "https://github.com/boostorg/build/pull/642/commits/e332f569d6aa8d67a9cc9fa88c2f5c8bd6dbf506.patch?full_index=1"
+    sha256 "4605863806473506c258eb6060df6e09a740f4f99473c61247b32d8bd7e21d81"
+    directory "tools/build"
+  end
+
   def install
     # Force boost to compile with the desired compiler
     open("user-config.jam", "a") do |file|
