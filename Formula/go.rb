@@ -34,8 +34,8 @@ class Go < Formula
   # Don't update this unless this version cannot bootstrap the new version.
   resource "gobootstrap" do
     on_macos do
-      url "https://storage.googleapis.com/golang/go1.7.darwin-amd64.tar.gz"
-      sha256 "51d905e0b43b3d0ed41aaf23e19001ab4bc3f96c3ca134b48f7892485fc52961"
+      url "https://storage.googleapis.com/golang/go1.13.darwin-amd64.tar.gz"
+      sha256 "234ebbba1fbed8474340f79059cfb3af2a0f8b531c4ff0785346e0710e4003dd"
     end
 
     on_linux do
@@ -51,6 +51,7 @@ class Go < Formula
     cd "src" do
       ENV["GOROOT_FINAL"] = libexec
       ENV["GOOS"]         = "darwin"
+      ENV["GOARCH"]       = "arm64"
       system "./make.bash", "--no-clean"
     end
 
