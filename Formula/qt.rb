@@ -8,7 +8,7 @@ class Qt < Formula
   mirror "https://mirrors.ocf.berkeley.edu/qt/archive/qt/5.15/5.15.0/single/qt-everywhere-src-5.15.0.tar.xz"
   sha256 "22b63d7a7a45183865cc4141124f12b673e7a17b1fe2b91e433f6547c5d548c3"
 
-  head "https://code.qt.io/qt/qt5.git", branch: "dev", shallow: false
+  head "https://code.qt.io/qt/qt5.git", branch: "5.15", shallow: false
 
   bottle do
     cellar :any
@@ -46,20 +46,26 @@ class Qt < Formula
       -qt-libjpeg
       -qt-freetype
       -qt-pcre
+      -no-assimp
       -nomake examples
       -nomake tests
       -no-rpath
       -pkg-config
       -dbus-runtime
-      -proprietary-codecs
+      -device-option QMAKE_APPLE_DEVICE_ARCHS=arm64
+      -skip qtwebchannel -skip qtwebengine -skip qtwebglplugin -skip qtwebsockets -skip qtwebview
     ]
+    #-proprietary-codecs
 
+    ENV["PKG_CONFIG_SYSROOT_DIR"]="/usr/local/Homebrew/Library/Homebrew/os/mac/pkgconfig/11.0"
     system "./configure", *args
 
     # Remove reference to shims directory
     inreplace "qtbase/mkspecs/qmodule.pri",
               /^PKG_CONFIG_EXECUTABLE = .*$/,
               "PKG_CONFIG_EXECUTABLE = #{Formula["pkg-config"].opt_bin/"pkg-config"}"
+    inreplace "qtbase/mkspecs/common/macx.conf", /x86_64/, "arm64"
+
     system "make"
     ENV.deparallelize
     system "make", "install"
