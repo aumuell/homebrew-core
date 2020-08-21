@@ -4,9 +4,19 @@ class Go < Formula
   license "BSD-3-Clause"
 
   stable do
+<<<<<<< Updated upstream
     url "https://golang.org/dl/go1.15.src.tar.gz"
     mirror "https://fossies.org/linux/misc/go1.15.src.tar.gz"
     sha256 "69438f7ed4f532154ffaf878f3dfd83747e7a00b70b3556eddabf7aaee28ac3a"
+=======
+<<<<<<< Updated upstream
+    url "https://golang.org/dl/go1.14.7.src.tar.gz"
+=======
+    url "https://dl.google.com/go/go1.14.7.src.tar.gz"
+>>>>>>> Stashed changes
+    mirror "https://fossies.org/linux/misc/go1.14.7.src.tar.gz"
+    sha256 "064392433563660c73186991c0a315787688e7c38a561e26647686f89b6c30e3"
+>>>>>>> Stashed changes
 
     go_version = version.to_s.split(".")[0..1].join(".")
     resource "gotools" do
@@ -34,8 +44,8 @@ class Go < Formula
   # Don't update this unless this version cannot bootstrap the new version.
   resource "gobootstrap" do
     on_macos do
-      url "https://storage.googleapis.com/golang/go1.13.darwin-amd64.tar.gz"
-      sha256 "234ebbba1fbed8474340f79059cfb3af2a0f8b531c4ff0785346e0710e4003dd"
+      url "https://storage.googleapis.com/golang/go1.14.7.darwin-amd64.tar.gz"
+      sha256 "9a71abeb3de60ed33c0f90368be814d140bc868963e90fbb98ea665335ffbf9a"
     end
 
     on_linux do
@@ -47,6 +57,7 @@ class Go < Formula
   def install
     (buildpath/"gobootstrap").install resource("gobootstrap")
     ENV["GOROOT_BOOTSTRAP"] = buildpath/"gobootstrap"
+    ENV["GOARCH"]       = "arm64"
 
     cd "src" do
       ENV["GOROOT_FINAL"] = libexec

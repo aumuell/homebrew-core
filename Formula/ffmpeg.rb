@@ -14,7 +14,7 @@ class Ffmpeg < Formula
     sha256 "9566b4ca9d24ab172295cb9a348af359e67b0620ef2e92ac579444549cf67870" => :high_sierra
   end
 
-  depends_on "nasm" => :build
+  #depends_on "nasm" => :build
   depends_on "pkg-config" => :build
   depends_on "texi2html" => :build
   depends_on "aom"
@@ -25,7 +25,7 @@ class Ffmpeg < Formula
   depends_on "gnutls"
   depends_on "lame"
   depends_on "libass"
-  depends_on "libbluray"
+  #depends_on "libbluray"
   depends_on "libsoxr"
   depends_on "libvidstab"
   depends_on "libvorbis"
@@ -40,7 +40,7 @@ class Ffmpeg < Formula
   depends_on "snappy"
   depends_on "speex"
   depends_on "srt"
-  depends_on "tesseract"
+  #depends_on "tesseract"
   depends_on "theora"
   depends_on "webp"
   depends_on "x264"

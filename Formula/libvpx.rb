@@ -13,7 +13,7 @@ class Libvpx < Formula
     sha256 "13e231eb9c8158e84df24a58c8b96f3f57e9202ad680b4be3bbaf7e67f40aaac" => :high_sierra
   end
 
-  depends_on "yasm" => :build
+  #depends_on "yasm" => :build
 
   def install
     args = %W[

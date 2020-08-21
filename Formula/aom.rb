@@ -15,7 +15,7 @@ class Aom < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "yasm" => :build
+  #depends_on "yasm" => :build
 
   resource "bus_qcif_15fps.y4m" do
     url "https://media.xiph.org/video/derf/y4m/bus_qcif_15fps.y4m"
